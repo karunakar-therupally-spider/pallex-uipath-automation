@@ -121,12 +121,12 @@
                           </Sequence.Variables>
                           <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into 'INPUT  username'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_1" SendWindowMessages="False" SimulateType="False" Text="[username]">
                             <ui:TypeInto.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="414e0d41e85456cf2d5d0e7fd76f4980" Selector="&lt;webctrl id='username' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="89d43a62553ca495a704de1467fe07c7" Selector="&lt;webctrl id='username' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                             </ui:TypeInto.Target>
                           </ui:TypeInto>
                           <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Type into 'INPUT  password'" EmptyField="False" sap2010:WorkflowViewState.IdRef="TypeInto_2" SendWindowMessages="False" SimulateType="False" Text="[password.ToString]">
                             <ui:TypeInto.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ded6dd92caee70d18c710843a7c0cbe6" Selector="&lt;webctrl id='password' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2ada41676ba89ba2c4f2a77fa125b623" Selector="&lt;webctrl id='password' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
                             </ui:TypeInto.Target>
                           </ui:TypeInto>
                           <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'BUTTON'" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
@@ -141,13 +141,13 @@
                               </ui:CursorPosition>
                             </ui:Click.CursorPosition>
                             <ui:Click.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="daa55d28324f9756f22dd08c8600f181" Selector="&lt;webctrl parentid='workspace-wrapper-signin' tag='BUTTON' type='submit' /&gt;" WaitForReady="INTERACTIVE" />
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="95afdabd61758b987001aaa343bd533e" Selector="&lt;webctrl parentid='workspace-wrapper-signin' tag='BUTTON' type='submit' /&gt;" WaitForReady="INTERACTIVE" />
                             </ui:Click.Target>
                           </ui:Click>
                           <Delay Duration="00:00:05" sap2010:WorkflowViewState.IdRef="Delay_4" />
                           <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'A'" sap2010:WorkflowViewState.IdRef="GetValue_2">
                             <ui:GetValue.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="02522f91e0b4ea3558126d8bec48aefd" Selector="&lt;webctrl aaname='do_ukd074 ' parentid='navbar' tag='A' /&gt;" WaitForReady="INTERACTIVE" />
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6bfce4e913ff717e2b6dcb42fcb21735" Selector="&lt;webctrl aaname='do_ukd074 ' parentid='navbar' tag='A' /&gt;" WaitForReady="INTERACTIVE" />
                             </ui:GetValue.Target>
                             <ui:GetValue.Value>
                               <OutArgument x:TypeArguments="x:String">[actualUsername]</OutArgument>
