@@ -1,0 +1,14 @@
+{
+  "name": "AddConsignment5",
+  "description": "Blank Project",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "17.1.6498.12628",
+  "projectVersion": "1.0.6499.24944",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

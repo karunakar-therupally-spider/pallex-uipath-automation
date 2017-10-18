@@ -1,0 +1,167 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ConsigmentData5a"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Insurance" Type="OutArgument(x:Object)" />
+    <x:Property Name="Length" Type="OutArgument(x:Object)" />
+    <x:Property Name="Height" Type="OutArgument(x:Object)" />
+    <x:Property Name="Weight" Type="OutArgument(x:Object)" />
+    <x:Property Name="Pallet" Type="OutArgument(x:Object)" />
+    <x:Property Name="Description" Type="OutArgument(x:String)" />
+    <x:Property Name="FavAddress" Type="OutArgument(x:String)" />
+    <x:Property Name="Country" Type="OutArgument(x:String)" />
+    <x:Property Name="Customername" Type="OutArgument(x:String)" />
+    <x:Property Name="Consignmentdata" Type="InArgument(x:String)" />
+    <x:Property Name="Width" Type="OutArgument(x:Object)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ConsigmentData5a_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.CSV.Activities</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.CSV</x:String>
+      <x:String>System.Windows.Markup</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Core.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="ReadConsignmentData" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" WorkbookPath="[Consignmentdata]">
+    <ui:ExcelApplicationScope.Body>
+      <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+        <ActivityAction.Argument>
+          <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+        </ActivityAction.Argument>
+        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <ui:ExcelReadCell Cell="B1" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_1" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:String">[Customername]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B2" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_4" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:String">[Country]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B3" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_5" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:String">[FavAddress]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B4" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_6" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:String">[Description]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B5" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_7" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Pallet]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B6" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_8" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Weight]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B7" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_9" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Width]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B8" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_2" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Height]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B9" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_3" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Length]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+          <ui:ExcelReadCell Cell="B10" DisplayName="Read Cell" sap2010:WorkflowViewState.IdRef="ExcelReadCell_10" SheetName="consignmentdetails">
+            <ui:ExcelReadCell.Result>
+              <OutArgument x:TypeArguments="x:Object">[Insurance]</OutArgument>
+            </ui:ExcelReadCell.Result>
+          </ui:ExcelReadCell>
+        </Sequence>
+      </ActivityAction>
+    </ui:ExcelApplicationScope.Body>
+    <sads:DebugSymbol.Symbol>dztEOlx1aXBhdGgtZXhwZXJpbWVudHNcQWRkQ29uc2lnbm1lbnQ1XENvbnNpZ21lbnREYXRhNWEueGFtbCtSA48BHgIBAVKaAVKtAQIBNVgJiwEUAgECWQtdHgIBMF4LYh4CAStjC2ceAgEmaAtsHgIBIW0LcR4CARxyC3YeAgEXdwt7HgIBEnwLgAEeAgENgQELhQEeAgEIhgELigEeAgEDWSJZJgIBNFs3W0UCATJZe1mPAQIBMV4iXiYCAS9gN2BAAgEtXntejwECASxjImMmAgEqZTdlQwIBKGN7Y48BAgEnaCJoJgIBJWo3akQCASNoe2iPAQIBIm0ibSYCASBvN28/AgEebXttjwECAR1yInImAgEbdDd0PwIBGXJ7co8BAgEYdyJ3JgIBFnk3eT4CARR3e3ePAQIBE3wifCYCARF+N34/AgEPfHt8jwECAQ6BASKBASYCAQyDATeDAT8CAQqBAXuBAY8BAgEJhgEihgEnAgEHiAE3iAFCAgEFhgF9hgGRAQIBBA==</sads:DebugSymbol.Symbol>
+  </ui:ExcelApplicationScope>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ExcelReadCell_1" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_4" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_5" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_6" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_7" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_8" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_9" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_2" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_3" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_10" sap:VirtualizedContainerService.HintSize="314,59" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="336,1074">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="414,1183" />
+      <sap2010:ViewStateData Id="ConsigmentData5a_1" sap:VirtualizedContainerService.HintSize="454,1263" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
