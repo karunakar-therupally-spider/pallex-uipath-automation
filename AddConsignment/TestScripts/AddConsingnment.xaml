@@ -2,6 +2,7 @@
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
  xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
  xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
  xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
@@ -56,6 +57,7 @@
       <AssemblyReference>System.ServiceModel</AssemblyReference>
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="AddConsingnment" sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -73,6 +75,8 @@
       <Variable x:TypeArguments="x:Object" Name="Insurance" />
       <Variable x:TypeArguments="x:String" Name="CustomerPrice" />
       <Variable x:TypeArguments="x:String" Name="ConsignmentCreated" />
+      <Variable x:TypeArguments="s:String[]" Name="UsernameArray" />
+      <Variable x:TypeArguments="x:String" Default=" " Name="space" />
     </Sequence.Variables>
     <Sequence DisplayName="Login" sap2010:WorkflowViewState.IdRef="Sequence_10">
       <Sequence.Variables>
@@ -105,7 +109,7 @@
                 </ui:ExcelReadCell.Result>
               </ui:ExcelReadCell>
               <ui:ExcelCloseWorkbook DisplayName="Close Workbook" sap2010:WorkflowViewState.IdRef="ExcelCloseWorkbook_2" Workbook="[ExcelWorkbookScope]" />
-              <ui:OpenBrowser UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Open browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" Private="False" Url="[url]">
+              <ui:OpenBrowser UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Open browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" Private="False" Url="[url]">
                 <ui:OpenBrowser.Body>
                   <ActivityAction x:TypeArguments="x:Object">
                     <ActivityAction.Argument>
@@ -153,6 +157,23 @@
                               <OutArgument x:TypeArguments="x:String">[actualUsername]</OutArgument>
                             </ui:GetValue.Value>
                           </ui:GetValue>
+                          <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="s:String[]">[UsernameArray]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="s:String[]">[actualUsername.Split()]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[actualUsername]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[UsernameArray.First]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <WriteLine DisplayName="Write line" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[actualUsername]" />
                           <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message box" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Userloggedin: &quot;+ actualUsername]" TopMost="True" />
                           <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="ReadConsignmentData" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" WorkbookPath="[Consignmentdata]">
                             <ui:ExcelApplicationScope.Body>
@@ -385,7 +406,7 @@
                                   </ui:Click>
                                   <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'DIV'" sap2010:WorkflowViewState.IdRef="GetValue_4">
                                     <ui:GetValue.Target>
-                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9f0c1354f1070d405a39c1380751a289" Selector="&lt;webctrl aaname='Consignment created sucessfully' parentid='toast-container' tag='DIV' /&gt;" WaitForReady="INTERACTIVE" />
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9f0c1354f1070d405a39c1380751a289" Selector="&lt;webctrl aaname='Consignment created*' parentid='toast-container' tag='DIV' /&gt;" WaitForReady="INTERACTIVE" />
                                     </ui:GetValue.Target>
                                     <ui:GetValue.Value>
                                       <OutArgument x:TypeArguments="x:String">[ConsignmentCreated]</OutArgument>
@@ -396,20 +417,14 @@
                               </ActivityAction>
                             </ui:ExcelApplicationScope.Body>
                           </ui:ExcelApplicationScope>
-                          <ui:CommentOut DisplayName="Comment out" sap2010:WorkflowViewState.IdRef="CommentOut_3">
-                            <ui:CommentOut.Body>
-                              <Sequence DisplayName="Ignored Activities" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                                <If Condition="[actualUsername.Equals(username)]" sap2010:WorkflowViewState.IdRef="If_1">
-                                  <If.Then>
-                                    <ui:WriteCell Cell="B4" DisplayName="Write cell" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="user" Text="Pass" WorkbookPath="[userdata]" />
-                                  </If.Then>
-                                  <If.Else>
-                                    <ui:WriteCell Cell="B4" DisplayName="Write cell" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="user" Text="Fail" WorkbookPath="[userdata]" />
-                                  </If.Else>
-                                </If>
-                              </Sequence>
-                            </ui:CommentOut.Body>
-                          </ui:CommentOut>
+                          <If Condition="[actualUsername.Equals(username)]" sap2010:WorkflowViewState.IdRef="If_1">
+                            <If.Then>
+                              <ui:WriteCell Cell="B4" DisplayName="Write cell" sap2010:WorkflowViewState.IdRef="WriteCell_1" SheetName="user" Text="Pass" WorkbookPath="[userdata]" />
+                            </If.Then>
+                            <If.Else>
+                              <ui:WriteCell Cell="B4" DisplayName="Write cell" sap2010:WorkflowViewState.IdRef="WriteCell_2" SheetName="user" Text="Fail" WorkbookPath="[userdata]" />
+                            </If.Else>
+                          </If>
                         </Sequence>
                       </Sequence>
                     </Sequence>
@@ -421,22 +436,25 @@
         </ui:ExcelApplicationScope.Body>
       </ui:ExcelApplicationScope>
     </Sequence>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="ExcelReadCell_11" sap:VirtualizedContainerService.HintSize="771,59" />
-      <sap2010:ViewStateData Id="ExcelReadCell_12" sap:VirtualizedContainerService.HintSize="771,59" />
-      <sap2010:ViewStateData Id="ExcelReadCell_13" sap:VirtualizedContainerService.HintSize="771,59" />
-      <sap2010:ViewStateData Id="ExcelCloseWorkbook_2" sap:VirtualizedContainerService.HintSize="771,59" />
-      <sap2010:ViewStateData Id="MaximizeWindow_1" sap:VirtualizedContainerService.HintSize="735,22" />
-      <sap2010:ViewStateData Id="Delay_3" sap:VirtualizedContainerService.HintSize="713,22" />
-      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="691,134" />
-      <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="691,134" />
-      <sap2010:ViewStateData Id="Click_2" sap:VirtualizedContainerService.HintSize="691,106" />
-      <sap2010:ViewStateData Id="Delay_4" sap:VirtualizedContainerService.HintSize="691,22" />
-      <sap2010:ViewStateData Id="GetValue_2" sap:VirtualizedContainerService.HintSize="691,106" />
-      <sap2010:ViewStateData Id="MessageBox_2" sap:VirtualizedContainerService.HintSize="691,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_11" sap:VirtualizedContainerService.HintSize="733,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_12" sap:VirtualizedContainerService.HintSize="733,59" />
+      <sap2010:ViewStateData Id="ExcelReadCell_13" sap:VirtualizedContainerService.HintSize="733,59" />
+      <sap2010:ViewStateData Id="ExcelCloseWorkbook_2" sap:VirtualizedContainerService.HintSize="733,59" />
+      <sap2010:ViewStateData Id="MaximizeWindow_1" sap:VirtualizedContainerService.HintSize="697,22" />
+      <sap2010:ViewStateData Id="Delay_3" sap:VirtualizedContainerService.HintSize="675,22" />
+      <sap2010:ViewStateData Id="TypeInto_1" sap:VirtualizedContainerService.HintSize="653,134" />
+      <sap2010:ViewStateData Id="TypeInto_2" sap:VirtualizedContainerService.HintSize="653,134" />
+      <sap2010:ViewStateData Id="Click_2" sap:VirtualizedContainerService.HintSize="653,106" />
+      <sap2010:ViewStateData Id="Delay_4" sap:VirtualizedContainerService.HintSize="653,22" />
+      <sap2010:ViewStateData Id="GetValue_2" sap:VirtualizedContainerService.HintSize="653,106" />
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="653,60" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="653,60" />
+      <sap2010:ViewStateData Id="WriteLine_1" sap:VirtualizedContainerService.HintSize="653,61" />
+      <sap2010:ViewStateData Id="MessageBox_2" sap:VirtualizedContainerService.HintSize="653,59" />
       <sap2010:ViewStateData Id="ExcelReadCell_14" sap:VirtualizedContainerService.HintSize="416,59" />
       <sap2010:ViewStateData Id="ExcelReadCell_15" sap:VirtualizedContainerService.HintSize="416,59" />
       <sap2010:ViewStateData Id="ExcelReadCell_16" sap:VirtualizedContainerService.HintSize="416,59" />
@@ -510,63 +528,55 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_3" sap:VirtualizedContainerService.HintSize="691,6093" />
+      <sap2010:ViewStateData Id="ExcelApplicationScope_3" sap:VirtualizedContainerService.HintSize="653,6093" />
       <sap2010:ViewStateData Id="WriteCell_1" sap:VirtualizedContainerService.HintSize="314,115" />
       <sap2010:ViewStateData Id="WriteCell_2" sap:VirtualizedContainerService.HintSize="314,115" />
       <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="653,262" />
-      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="675,386">
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="675,7621">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="CommentOut_3" sap:VirtualizedContainerService.HintSize="691,464" />
-      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="713,7522">
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="697,7807">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="735,7708">
+      <sap2010:ViewStateData Id="Sequence_18" sap:VirtualizedContainerService.HintSize="719,7993">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_18" sap:VirtualizedContainerService.HintSize="757,7894">
+      <sap2010:ViewStateData Id="OpenBrowser_1" sap:VirtualizedContainerService.HintSize="733,8092" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="755,8612">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="OpenBrowser_1" sap:VirtualizedContainerService.HintSize="771,7993" />
-      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="793,8513">
+      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="769,8721" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="791,8845">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ExcelApplicationScope_2" sap:VirtualizedContainerService.HintSize="807,8622" />
-      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="829,8746">
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="813,8969">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="851,8870">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="AddConsingnment5a_1" sap:VirtualizedContainerService.HintSize="891,8950" />
+      <sap2010:ViewStateData Id="AddConsingnment5a_1" sap:VirtualizedContainerService.HintSize="853,9049" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
